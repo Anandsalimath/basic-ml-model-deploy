@@ -1,12 +1,26 @@
+import streamlit as st
 import pickle
-from sklearn.linear_model import LinearRegression
 
-X = [[1], [2], [3], [4], [5]]
-y = [2, 3, 5, 8, 11]
+# Load the pickled model
+with open('model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
-model = LinearRegression()
-model.fit(X, y)
+# Create the Streamlit web app
+st.header("🌟 Streamlit demo 🌟")
+st.markdown("### *Dedicated to the Legend: Shridhar Sir* 👨‍🏫✨")
+st.markdown("> *Where there's Shridhar, there's brilliance. Where there's brilliance, there's this app!* 💫")
 
-# Save the trained model using pickle
-with open('model.pkl', 'wb') as file:
-    pickle.dump(model, file)
+st.sidebar.header("This is a web app")
+
+X_test = st.sidebar.slider("Select X to get yhat", 0, 10, 5)
+
+st.write("X test is:", X_test)
+
+yhat_test = model.predict([[X_test]])
+
+st.write("b0 is", round(model.intercept_, 3))
+st.write("b1 is", round(model.coef_[0], 3))
+st.write("yhat test is", yhat_test)
+
+st.markdown("---")
+st.markdown("*Built with ❤️ and inspired by Shridhar Sir's guidance*")
